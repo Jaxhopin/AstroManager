@@ -1,0 +1,91 @@
+.table-view {
+    -fx-base: #1a1a1a;
+    -fx-control-inner-background: #1a1a1a;
+    -fx-background-color: #1a1a1a;
+    -fx-table-cell-border-color: transparent;
+    -fx-padding: 0;
+    -fx-font-size: 13px; /* Reducido de 14px */
+    -fx-font-family: "Inter", sans-serif;
+    -fx-border-color: #00d2ff;
+    -fx-border-radius: 2px;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #1f1f1f;
+    -fx-background-radius: 0;
+}
+
+.table-view .column-header-background .filler {
+    -fx-background-color: #1f1f1f;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-size: 35px; /* Reducido de 45px */
+    -fx-border-color: #333333;
+    -fx-border-width: 0 1 1 0;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #00d2ff;
+    -fx-font-size: 14px; /* Reducido de 19px */
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER;
+}
+
+.table-cell {
+    -fx-text-fill: white;
+    -fx-font-size: 17px; /* Reducido de 18px */
+    -fx-border-color: #333333;
+    -fx-border-width: 0 1 0 0;
+}
+
+.table-row-cell {
+    -fx-background-color: #1a1a1a;
+    -fx-border-color: transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: rgba(0, 210, 255, 0.15);
+    -fx-border-color: transparent transparent #00d2ff transparent;
+    -fx-border-width: 0 0 2 0;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #222222;
+}
+
+.table-view .corner {
+    -fx-background-color: #1a1a1a;
+}
+
+/* SLIDERS - Versión Compacta */
+
+.slider .track, .range-slider .track {
+    -fx-background-color: #333333;
+    -fx-background-radius: 5px;
+    -fx-pref-height: 4px; /* Más fino (antes 6px) */
+}
+
+.slider .thumb, .range-slider .low-thumb, .range-slider .high-thumb {
+    -fx-background-color: #00d2ff;
+    -fx-background-radius: 50%;
+    -fx-pref-width: 12px; /* Más pequeño (antes 16px) */
+    -fx-pref-height: 12px;
+    -fx-cursor: hand;
+}
+
+.slider .thumb:hover, .range-slider .thumb:hover {
+    -fx-background-color: white;
+}
+
+.slider .axis, .range-slider .axis {
+    -fx-tick-label-font-size: 18px; /* Reducido de 20px */
+    -fx-fill: #aaaaaa;
+    -fx-font-family: "Inter", sans-serif;
+}
+
+.slider .axis:tick-mark, .range-slider .axis:tick-mark {
+    -fx-stroke: #555555;
+}
