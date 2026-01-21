@@ -3,7 +3,7 @@
 
 <div align="center">
 
-![Java](https://img.shields.io/badge/Java-23-purple?style=for-the-badge&logo=openjdk)
+![Java](https://img.shields.io/badge/Java-21-purple?style=for-the-badge&logo=openjdk)
 ![JavaFX](https://img.shields.io/badge/GUI-JavaFX-blue?style=for-the-badge&logo=java)
 ![Status](https://img.shields.io/badge/Status-Active-success?style=for-the-badge)
 
