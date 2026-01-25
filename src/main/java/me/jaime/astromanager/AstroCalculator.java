@@ -86,18 +86,15 @@ public class AstroCalculator {
     public static String calculateTimeLeft(CelestialBody object, double lat, double lon, double currentHour, LocalDate date,
                                            double minAltitude, double blockStart, double blockEnd) {
 
-        // 1. Calcular estado ACTUAL
         double lstHours = calculateLST(date, currentHour, lon);
         double currentAlt = calculateCurrentHeight(object, lat, lstHours * 15.0);
-        double currentAz = getAzimuth(object, lat, lstHours); // Asegúrate de tener este método (o calculateAzimuth)
+        double currentAz = getAzimuth(object, lat, lstHours);
 
-        // ¿Está bloqueado YA? (Por altura o por edificio)
         boolean isBlockedByWall = (currentAz >= blockStart && currentAz <= blockEnd);
         if (currentAlt < minAltitude || isBlockedByWall) {
-            return "---"; // Ya no es visible
+            return "---";
         }
 
-        // 2. SIMULACIÓN DEL FUTURO (Miramos las próximas 24 horas)
         for (double i = 0; i < 24; i += 0.1) {
             double futureHour = currentHour + i;
             if (futureHour >= 24) futureHour -= 24;
@@ -106,21 +103,18 @@ public class AstroCalculator {
             double futureAlt = calculateCurrentHeight(object, lat, futureLST * 15.0);
             double futureAz = getAzimuth(object, lat, futureLST);
 
-            // CONDICIÓN 1: ¿Baja de la altura mínima?
             if (futureAlt < minAltitude) {
-                return formatTime(i, "↘"); // Icono de ponerse normal
+                return formatTime(i, "↘");
             }
 
-            // CONDICIÓN 2: ¿Entra en el rango del edificio?
             if (futureAz >= blockStart && futureAz <= blockEnd) {
-                return formatTime(i, "🏢"); // Icono de edificio
+                return formatTime(i, "🏢");
             }
         }
 
-        return "♾ Always"; // Circumpolar y sin chocar nunca
+        return "♾ Always";
     }
 
-    // Pequeño ayudante para formatear el texto
     private static String formatTime(double hoursDiff, String icon) {
         int h = (int) hoursDiff;
         int m = (int) ((hoursDiff - h) * 60);
@@ -129,26 +123,21 @@ public class AstroCalculator {
         return String.format("%s %dh %dm", icon, h, m);
     }
     public static double getAzimuth(CelestialBody object, double latitud, double lstHours) {
-        // 1. Convertir todo a radianes
+
         double latRad = Math.toRadians(latitud);
         double decRad = Math.toRadians(object.getDEC());
 
-        // Calcular Ángulo Horario (HA)
         double haGrados = (lstHours * 15.0) - object.getRA();
         double haRad = Math.toRadians(haGrados);
 
-        // 2. Fórmula de Trigonometría Esférica para el Azimut
-        // Usamos atan2 para que nos de el cuadrante correcto automáticamente
         double y = Math.sin(haRad);
         double x = (Math.cos(haRad) * Math.sin(latRad)) - (Math.tan(decRad) * Math.cos(latRad));
 
         double azRad = Math.atan2(y, x);
         double azGrados = Math.toDegrees(azRad);
 
-        // 3. Ajuste para que el Norte sea 0º (La fórmula suele dar Sur=0)
         azGrados = azGrados + 180;
 
-        // Normalizar a 0-360
         azGrados = azGrados % 360;
         if (azGrados < 0) azGrados += 360;
 
